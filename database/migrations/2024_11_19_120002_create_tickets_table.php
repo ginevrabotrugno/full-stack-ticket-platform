@@ -13,10 +13,22 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('operator_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['assigned', 'in progress', 'closed'])->default('assigned');
             $table->timestamps();
+
+            $table->foreign('operator_id')
+                ->references('id')
+                ->on('operators')
+                ->onDelete('set null');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->cascadeOnDelete();
         });
     }
 
