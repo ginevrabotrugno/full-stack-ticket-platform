@@ -64,7 +64,7 @@
         <div class="col-md-4">
             <label for="status" class="form-label">Filter by Status</label>
             <select name="status" id="status" class="form-select">
-                <option value="" selected>All Status</option>
+                <option value="" selected>All Statuses</option>
                 <option value="assigned" @if (request('status') === 'assigned') selected @endif>Assigned</option>
                 <option value="in progress" @if (request('status') === 'in progress') selected @endif>In Progress</option>
                 <option value="closed" @if (request('status') === 'closed') selected @endif>Closed</option>
