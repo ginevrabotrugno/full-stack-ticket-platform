@@ -22,8 +22,8 @@ class TicketsTableSeeder extends Seeder
             $new_ticket->category_id = rand(1, 5);
 
             // Campi generati con Faker
-            $new_ticket->title = $faker->sentence(6); // Una frase breve come titolo
-            $new_ticket->description = $faker->paragraph(); // Un paragrafo per la descrizione
+            $new_ticket->title = $faker->sentence(3); // Una frase breve come titolo
+            $new_ticket->description = $faker->text(500); // Un paragrafo per la descrizione
 
             // Stato casuale tra quelli definiti nell'enum
             $statuses = ['assigned', 'in progress', 'closed'];
