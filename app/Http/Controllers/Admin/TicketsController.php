@@ -13,7 +13,7 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::orderBy('id', 'desc')->get();
+        $tickets = Ticket::orderBy('id', 'desc')->with('category')->get();
         return view('admin.tickets.index', compact('tickets'));
     }
 

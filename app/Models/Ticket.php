@@ -9,12 +9,12 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    public function operators(){
-        return $this->hasMany(Operator::class);
+    public function operator(){
+        return $this->belongsTo(Operator::class);
     }
 
-    public function categories(){
-        return $this->hasMany(Category::class);
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
     protected $fillable = [

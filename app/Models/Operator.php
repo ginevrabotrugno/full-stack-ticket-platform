@@ -9,8 +9,8 @@ class Operator extends Model
 {
     use HasFactory;
 
-    public function ticket(){
-        return $this->belongsTo(Ticket::class);
+    public function tickets(){
+        return $this->hasmany(Ticket::class);
     }
 
     protected $fillable = [

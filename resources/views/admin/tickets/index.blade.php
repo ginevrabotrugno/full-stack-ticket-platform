@@ -15,8 +15,8 @@
         @foreach ($tickets as $ticket)
             <tr>
                 <td> {{ $ticket->title }} </td>
-                <td class="text-center"> Category </td>
-                <td class="text-center"> {{ $ticket->status }} </td>
+                <td class="text-center"> {{ $ticket->category->name }} </td>
+                <td class="text-center"> {{ ucwords($ticket->status) }} </td>
                 <td class="text-center"> {{ ($ticket->created_at)->format('d/m/Y') }} </td>
                 <td class="text-center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
