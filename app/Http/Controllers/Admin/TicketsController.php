@@ -13,10 +13,29 @@ class TicketsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::orderBy('created_at', 'desc')->with('category')->get();
+        // Recupera i filtri dalla richiesta
+        $categoryFilter = $request->input('category');
+        $statusFilter = $request->input('status');
+
+        // Costruisci la query
+        $ticketsQuery = Ticket::orderBy('created_at', 'desc')->with('category');
+
+        if ($categoryFilter) {
+            $ticketsQuery->where('category_id', $categoryFilter);
+        }
+
+        if ($statusFilter) {
+            $ticketsQuery->where('status', $statusFilter);
+        }
+
+        // Recupera i risultati della query
+        $tickets = $ticketsQuery->get();
+
+        // Recupera le categorie per il dropdown
         $categories = Category::all();
+
         return view('admin.tickets.index', compact('tickets', 'categories'));
     }
 
