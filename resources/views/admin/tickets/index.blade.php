@@ -34,9 +34,9 @@
                 <td class="text-center"> {{ ($ticket->created_at)->format('d/m/Y') }} </td>
                 <td class="text-center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <button type="button" class="btn btn-success">
+                        <a href=" {{ route('admin.tickets.show', $ticket) }} " type="button" class="btn btn-success">
                             <i class="fa-regular fa-eye"></i>
-                        </button>
+                        </a>
                         <button type="button" class="btn btn-warning">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </button>
