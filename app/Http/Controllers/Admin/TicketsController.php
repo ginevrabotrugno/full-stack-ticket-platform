@@ -67,9 +67,12 @@ class TicketsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Ticket $ticket)
     {
-        //
+        $data = $request->all();
+        $ticket->update($data);
+
+        return redirect()->route('admin.tickets.index')->with('success', 'Ticket status edited succesfully!');
     }
 
     /**

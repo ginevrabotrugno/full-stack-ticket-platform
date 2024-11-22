@@ -15,6 +15,38 @@
     </div>
 @endif
 
+@foreach ($tickets as $ticket)
+    <div class="modal fade" id="modalSheet{{ $ticket->id }}" tabindex="-1" aria-labelledby="modalSheetLabel{{ $ticket->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5" id="modalSheetLabel{{ $ticket->id }}">Edit <strong>{{$ticket->title}}</strong> Status</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <form action="{{ route('admin.tickets.update', $ticket) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-3">
+                            <select name="status" id="status" class="form-select" data-selected="{{ $ticket->status }}" required>
+                                <option value="assigned" @if ($ticket->status === 'assigned') selected @endif>Assigned</option>
+                                <option value="in progress" @if ($ticket->status === 'in progress') selected @endif>In Progress</option>
+                                <option value="closed" @if ($ticket->status === 'closed') selected @endif>Closed</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                            <button type="submit" class="btn btn-lg btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -37,11 +69,9 @@
                         <a href=" {{ route('admin.tickets.show', $ticket) }} " type="button" class="btn btn-success">
                             <i class="fa-regular fa-eye"></i>
                         </a>
-                        <button type="button" class="btn btn-warning">
+                        <!-- Bottone per aprire il modal per modificare il ticket -->
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalSheet{{ $ticket->id }}">
                             <i class="fa-regular fa-pen-to-square"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger">
-                            <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </div>
                 </td>
@@ -52,11 +82,26 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        let toastEl = document.querySelector('.toast');
-        if (toastEl) {
-            let toast = new bootstrap.Toast(toastEl);
-            toast.show();
-        }
+    let modals = document.querySelectorAll('.modal');
+
+    modals.forEach(modal => {
+        modal.addEventListener('shown.bs.modal', function () {
+            let select = modal.querySelector('select#status');
+            let value = select.getAttribute('data-selected');
+            if (value) {
+                select.value = value;
+            }
+        });
     });
+
+    // Toast logic
+    let toastEl = document.querySelector('.toast');
+    if (toastEl) {
+        let toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    }
+});
+
 </script>
+
 @endsection
