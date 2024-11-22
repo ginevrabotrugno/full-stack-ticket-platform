@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TicketRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
@@ -14,7 +15,7 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::orderBy('id', 'desc')->with('category')->get();
+        $tickets = Ticket::orderBy('created_at', 'desc')->with('category')->get();
         return view('admin.tickets.index', compact('tickets'));
     }
 
@@ -31,10 +32,20 @@ class TicketsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TicketRequest $request)
     {
         $data = $request->all();
-        dd($data);
+
+        $new_ticket = new Ticket();
+        $new_ticket->title = $data['title'];
+        $new_ticket->description = $data['description'];
+        $new_ticket->operator_id = $data['operator'];
+        $new_ticket->status = $data['status'];
+        $new_ticket->category_id = $data['category'];
+        $new_ticket->save();
+        $new_ticket->load('category');
+
+        return redirect()->route('admin.tickets.index', $new_ticket)->with('success', 'New ticket created succesfully!');
     }
 
     /**

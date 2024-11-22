@@ -3,6 +3,16 @@
 @section('content')
 <h1>New Ticket</h1>
 
+@if ($errors->any())
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li> {{$error}} </li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form class="my-3" action="{{ route('admin.tickets.store') }}" method="POST">
     @csrf
         <div class="my-3">
@@ -22,9 +32,9 @@
             <div class="col-md-4">
               <label for="status" class="form-label">Status*</label>
               <select name="status" id="status" class="form-select" required>
-                <option value="1">Assigned</option>
-                <option value="2">In Progress</option>
-                <option value="3">Closed</option>
+                <option value="assigned">Assigned</option>
+                <option value="in progress">In Progress</option>
+                <option value="closed">Closed</option>
               </select>
             </div>
 

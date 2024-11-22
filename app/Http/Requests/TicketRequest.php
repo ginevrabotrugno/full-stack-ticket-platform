@@ -24,7 +24,7 @@ class TicketRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string|min:10',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required',
             'operator' => 'required|exists:operators,id',
             'category' => 'required|exists:categories,id',
         ];
@@ -42,8 +42,6 @@ class TicketRequest extends FormRequest
             'description.min' => 'The description must be at least 10 characters long.',
 
             'status.required' => 'The status field is mandatory.',
-            'status.integer' => 'The status must be a valid choice.',
-            'status.in' => 'The selected status is invalid.',
 
             'operator.required' => 'The operator field is mandatory.',
             'operator.exists' => 'The selected operator does not exist.',
