@@ -15,6 +15,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.tickets.index') }}">Tickets</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.tickets.create') }}">New Ticket</a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

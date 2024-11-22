@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
-
+use App\Models\Operator;
 class TicketsController extends Controller
 {
     /**
@@ -22,7 +23,9 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $operators = Operator::all();
+        return view('admin.tickets.create', compact('categories', 'operators'));
     }
 
     /**
@@ -30,7 +33,8 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        dd($data);
     }
 
     /**
