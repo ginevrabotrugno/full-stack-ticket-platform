@@ -45,11 +45,15 @@ class TicketsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        
-        // Seleziona gli operatori che hanno almeno un ticket con stato 'closed'
+
+        // Seleziona solo gli operatori che hanno esclusivamente ticket con stato 'closed'
         $operators = Operator::whereHas('tickets', function ($query) {
             $query->where('status', 'closed');
-        })->get();
+        })
+        ->whereDoesntHave('tickets', function ($query) {
+            $query->where('status', '!=', 'closed');
+        })
+        ->get();
 
         return view('admin.tickets.create', compact('categories', 'operators'));
     }
