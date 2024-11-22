@@ -23,7 +23,9 @@
     <div id="app">
         @include('admin.partials.header')
         <main>
-            @yield('content')
+            <div class="container p-5">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
