@@ -48,5 +48,6 @@
 
         </div>
         <button type="submit" class="btn btn-primary mt-3">Save</button>
+        <button type="reset" class="btn btn-secondary mt-3">Reset</button>
     </form>
 @endsection
