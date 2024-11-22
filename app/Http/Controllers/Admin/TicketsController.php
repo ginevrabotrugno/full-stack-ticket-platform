@@ -16,7 +16,8 @@ class TicketsController extends Controller
     public function index()
     {
         $tickets = Ticket::orderBy('created_at', 'desc')->with('category')->get();
-        return view('admin.tickets.index', compact('tickets'));
+        $categories = Category::all();
+        return view('admin.tickets.index', compact('tickets', 'categories'));
     }
 
     /**

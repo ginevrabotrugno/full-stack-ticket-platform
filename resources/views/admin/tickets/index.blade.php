@@ -47,6 +47,36 @@
     </div>
 @endforeach
 
+<div class="filter-box p-3 mb-4 rounded-3 bg-light">
+    <form action="{{ route('admin.tickets.index') }}" method="GET" class="row justify-content-center g-3">
+        <div class="col-md-4">
+            <label for="category" class="form-label">Filter by Category</label>
+            <select name="category" id="category" class="form-select">
+                <option value="" selected>All Categories</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        @if (request('category') == $category->id) selected @endif>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="status" class="form-label">Filter by Status</label>
+            <select name="status" id="status" class="form-select">
+                <option value="" selected>All Status</option>
+                <option value="assigned" @if (request('status') === 'assigned') selected @endif>Assigned</option>
+                <option value="in progress" @if (request('status') === 'in progress') selected @endif>In Progress</option>
+                <option value="closed" @if (request('status') === 'closed') selected @endif>Closed</option>
+            </select>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+            <a href="{{ route('admin.tickets.index') }}" class="btn btn-secondary ms-2">Clear Filters</a>
+        </div>
+    </form>
+</div>
+
 <table class="table table-hover">
     <thead>
         <tr>
